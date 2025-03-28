@@ -57,3 +57,6 @@ Si vous modifiez la configuration des conteneurs, reconstruisez-les avec :
 docker-compose up --build -d
 ```
 
+# Projet d'exemple
+
+Un projet d'exemple est disponible sur GitHub à l'adresse suivante : [text](https://github.com/maximeBourciez/War.net.git)
