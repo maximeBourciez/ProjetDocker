@@ -1,0 +1,42 @@
+version: '3.8'
+
+services:
+  # Service web avec Nginx pour Angular et Laravel
+  web:
+    build: 
+      context: .
+      dockerfile: ./docker/Dockerfile
+    restart: always
+    ports:
+      - "8081:80"
+      - "8000:81"
+    volumes:
+      - web_volume:/var/www/
+    depends_on:
+      - database
+    
+  # Service de base de données MariaDB
+  database:
+    image: mariadb:10.6
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: laraveldb
+      MYSQL_USER: devuser
+      MYSQL_PASSWORD: devpassword
+    volumes:
+      - db_data:/var/lib/mysql
+
+  # Service phpMyAdmin
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    environment:
+      PMA_HOST: database
+      PMA_PORT: 3306
+    ports:
+      - "8080:80"
+    depends_on:
+      - database
+
+volumes:
+  web_volume:
+  db_data:
